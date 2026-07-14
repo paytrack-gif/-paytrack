@@ -1,0 +1,1629 @@
+/* ===== GOOGLE FONT ===== */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+
+    background:#f3f6fb;
+
+    color:#222;
+
+}
+
+a{
+
+    text-decoration:none;
+
+    color:inherit;
+
+}
+
+button{
+
+    cursor:pointer;
+
+    border:none;
+
+}
+
+input,
+select,
+textarea{
+
+    font-family:inherit;
+
+}
+
+.wrapper{
+
+    display:flex;
+
+    min-height:100vh;
+
+}/* ===== SIDEBAR ===== */
+
+.sidebar{
+
+    width:260px;
+
+    background:#1f2937;
+
+    color:white;
+
+    display:flex;
+
+    flex-direction:column;
+
+    position:fixed;
+
+    top:0;
+
+    left:0;
+
+    bottom:0;
+
+}
+
+.logo{
+
+    padding:30px;
+
+    font-size:24px;
+
+    font-weight:700;
+
+    text-align:center;
+
+    border-bottom:1px solid rgba(255,255,255,.1);
+
+}
+
+.sidebar nav{
+
+    display:flex;
+
+    flex-direction:column;
+
+    padding:20px;
+
+}
+
+.sidebar nav a{
+
+    padding:15px;
+
+    margin-bottom:8px;
+
+    border-radius:10px;
+
+    transition:.3s;
+
+}
+
+.sidebar nav a:hover{
+
+    background:#374151;
+
+}
+
+.sidebar nav a.active{
+
+    background:#2563eb;
+
+}/* ===== MAIN ===== */
+
+.main{
+
+    margin-left:260px;
+
+    flex:1;
+
+    min-width:0;
+
+    padding:35px;
+
+}
+
+.topbar{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:30px;
+
+}
+
+.topbar h1{
+
+    font-size:30px;
+
+}
+
+.topbar p{
+
+    color:#777;
+
+}/* ===== BUTTON ===== */
+
+.btn{
+
+    padding:12px 22px;
+
+    border-radius:10px;
+
+    font-weight:600;
+
+}
+
+.btn-primary{
+
+    background:#2563eb;
+
+    color:white;
+
+}
+
+.btn-primary:hover{
+
+    background:#1d4ed8;
+
+}/* ===== FORM ===== */
+
+.form-card{
+
+    background:white;
+
+    border-radius:16px;
+
+    padding:30px;
+
+    margin-bottom:25px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+
+}
+
+.form-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:20px;
+
+}
+
+.form-grid > .form-group{
+
+    min-width:0;
+
+}
+
+.form-group{
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+.form-group label{
+
+    margin-bottom:8px;
+
+    font-weight:600;
+
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+
+    padding:12px;
+
+    border:1px solid #ddd;
+
+    border-radius:10px;
+
+}
+
+textarea{
+
+    resize:vertical;
+
+}/* ===== TABLE ===== */
+
+.table-card{
+
+    background:white;
+
+    padding:30px;
+
+    border-radius:16px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+
+    overflow:auto;
+
+}
+
+table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+}
+
+th{
+
+    background:#2563eb;
+
+    color:white;
+
+    padding:14px;
+
+}
+
+td{
+
+    padding:14px;
+
+    border-bottom:1px solid #eee;
+
+}
+
+tr:hover{
+
+    background:#f8f9fc;
+
+}/* ===========================
+   PAYMENT SCHEDULE
+=========================== */
+
+.schedule-options{
+
+    display:flex;
+
+    gap:25px;
+
+    margin-top:8px;
+
+}
+
+.schedule-options label{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    cursor:pointer;
+
+}
+
+.schedule-preview{
+
+    display:flex;
+
+    gap:10px;
+
+    flex-wrap:wrap;
+
+    margin-top:10px;
+
+}
+
+.schedule-preview span{
+
+    background:#2563eb;
+
+    color:white;
+
+    padding:8px 14px;
+
+    border-radius:30px;
+
+    font-size:14px;
+
+    font-weight:500;
+
+}/* ===========================
+   CUSTOM CATEGORY SELECT
+=========================== */
+
+.custom-select{
+    position:relative;
+    width:100%;
+    min-width:0;
+}
+
+.select-box{
+    height:55px;
+    border:1px solid #dcdcdc;
+    border-radius:12px;
+    padding:0 18px;
+    background:#fff;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.select-box:hover{
+    border-color:#4f46e5;
+}
+
+.select-menu{
+    position:absolute;
+    top:60px;
+    left:0;
+    width:100%;
+    background:white;
+    border-radius:12px;
+    box-shadow:0 15px 35px rgba(0,0,0,.15);
+    display:none;
+    z-index:999;
+    overflow:hidden;
+}
+
+.select-menu.show{
+    display:block;
+}
+
+.option{
+    padding:15px 18px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.option:hover{
+    background:#eef2ff;
+    color:#4f46e5;
+}
+
+.add-category{
+    padding:15px 18px;
+    color:#4f46e5;
+    font-weight:600;
+    cursor:pointer;
+    background:#fafafa;
+}
+
+.add-category:hover{
+    background:#eef2ff;
+}
+
+.select-menu hr{
+    border:none;
+    border-top:1px solid #ececec;
+}/* Modal */
+
+.modal{
+
+    display:none;
+
+    position:fixed;
+
+    top:0;
+    left:0;
+
+    width:100%;
+    height:100%;
+
+    background:rgba(0,0,0,.4);
+
+    justify-content:center;
+    align-items:center;
+
+    overflow-y:auto;
+
+    padding:25px;
+
+    z-index:5000;
+
+}
+
+.modal.show{
+
+    display:flex;
+
+}
+
+.modal-content{
+
+    width:600px;
+
+    max-width:95%;
+
+    max-height:90vh;
+
+    overflow-y:auto;
+
+    background:white;
+
+    padding:30px;
+
+    border-radius:15px;
+
+}
+.btn-edit{
+    background:#f59e0b;
+    color:#fff;
+    margin-right:8px;
+}
+
+.btn-edit:hover{
+    background:#d97706;
+}
+
+
+#companiesTable{
+    table-layout:fixed;
+}
+#companiesTable td{
+    padding:14px;
+    border-bottom:1px solid #eee;
+
+    max-width:220px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+.action-buttons{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    align-items:center;
+}
+
+.action-buttons .btn{
+    width:100px;
+}
+
+
+.btn-warning{
+    background:#f59e0b;
+    color:white;
+}
+
+.btn-warning:hover{
+    background:#d97706;
+}
+
+.btn-danger{
+    background:#ef4444;
+    color:white;
+}
+
+.btn-danger:hover{
+    background:#dc2626;
+}.table-wrapper{
+    width:100%;
+    overflow-x:auto;
+}
+
+#companiesTable{
+    width:max-content;
+    min-width:100%;
+    border-collapse:collapse;
+}
+
+#companiesTable th,
+#companiesTable td{
+    padding:14px 18px;
+    white-space:nowrap;
+}#companiesTable td:nth-child(7),
+#companiesTable td:nth-child(8){
+
+    min-width:250px;
+
+    max-width:350px;
+
+    white-space:normal;
+
+    word-break:break-word;
+}#companiesTable td:last-child{
+
+    min-width:180px;
+
+    text-align:center;
+}.action-buttons{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:8px;
+}
+
+/* ===========================
+   PAYMENTS PAGE
+=========================== */
+
+/* Roomy layout: columns size to fit their widest content (never
+   crammed or truncated) and the table simply scrolls horizontally
+   if it doesn't all fit — see .table-wrapper. */
+.payments-table{
+    border-collapse:separate;
+    border-spacing:0;
+    table-layout:auto;
+}
+
+.payments-table th,
+.payments-table td{
+    padding:16px 20px;
+    vertical-align:middle;
+}
+
+.payments-table td{
+    white-space:nowrap;
+}
+
+.payments-table th:nth-child(3),
+.payments-table td:nth-child(3){
+    min-width:200px;
+    white-space:normal;
+}
+
+.payments-table th:nth-child(2),
+.payments-table td:nth-child(2){
+    min-width:130px;
+}
+
+.period-cell{
+    min-width:180px;
+}
+
+.payment-input{
+    width:100%;
+    min-width:130px;
+    padding:11px 14px;
+    border:1px solid #ddd;
+    border-radius:8px;
+    text-align:right;
+    font-family:inherit;
+    font-size:14px;
+    font-variant-numeric:tabular-nums;
+}
+
+.payment-input:focus{
+    outline:none;
+    border-color:#4f46e5;
+    box-shadow:0 0 0 3px rgba(79,70,229,.15);
+}
+
+.totals-row td{
+    background:#f3f6fb;
+    font-weight:700;
+    border-top:2px solid #e2e8f0;
+}
+
+.year-total-cell,
+.year-grand-total,
+.row-total,
+.grand-total,
+.period-total{
+    min-width:150px;
+    font-size:15px;
+    font-variant-numeric:tabular-nums;
+    letter-spacing:.2px;
+}
+
+.period-total{
+    font-weight:700;
+    color:#2563eb;
+    text-align:right;
+}
+
+
+/* ===========================
+   PAYMENTS — SERVICE SECTIONS
+=========================== */
+
+.service-section{
+    margin-bottom:40px;
+}
+
+.service-heading h2{
+    font-size:22px;
+    color:#1f2937;
+    margin-bottom:16px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.service-heading h2 i{
+    color:#2563eb;
+}
+
+.subgroup-subtitle{
+    color:#777;
+    font-size:14px;
+    margin-bottom:10px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+/* ===========================
+   PAYMENTS — EDITABLE PERIODS
+=========================== */
+
+.schedule-preview-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-bottom:16px;
+}
+
+.btn-add-period{
+    background:#eef2ff;
+    color:#4f46e5;
+    padding:8px 16px;
+    border-radius:30px;
+    font-size:14px;
+    font-weight:600;
+    white-space:nowrap;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+}
+
+.btn-add-period:hover{
+    background:#c7d2fe;
+}
+
+.period-header-cell{
+    min-width:180px;
+}
+
+.period-header{
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.period-label-input{
+    flex:1;
+    min-width:0;
+    background:rgba(255,255,255,.15);
+    border:1px solid rgba(255,255,255,.35);
+    color:white;
+    border-radius:6px;
+    padding:6px 8px;
+    font-size:13px;
+    font-weight:600;
+}
+
+.period-label-input::placeholder{
+    color:rgba(255,255,255,.7);
+}
+
+.period-label-input:focus{
+    outline:none;
+    border-color:white;
+    background:rgba(255,255,255,.25);
+}
+
+.period-remove-btn{
+    background:rgba(255,255,255,.15);
+    color:white;
+    width:24px;
+    height:24px;
+    border-radius:6px;
+    flex-shrink:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:11px;
+}
+
+.period-remove-btn:hover{
+    background:rgba(239,68,68,.9);
+}
+
+/* ===========================
+   PAYMENTS — YEAR TABS
+=========================== */
+
+.year-tabs{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    margin-bottom:20px;
+}
+
+.year-tab{
+    background:#eef2ff;
+    color:#4f46e5;
+    padding:8px 18px;
+    border-radius:30px;
+    font-weight:600;
+    font-size:14px;
+    transition:.2s;
+}
+
+.year-tab:hover{
+    background:#c7d2fe;
+}
+
+.year-tab.active{
+    background:#2563eb;
+    color:white;
+}
+
+.payment-input:disabled{
+    background:#f3f4f6;
+    color:#9ca3af;
+    cursor:not-allowed;
+}
+
+.year-total-cell,
+.year-grand-total{
+    font-weight:700;
+    color:#2563eb;
+    text-align:right;
+    background:#eef2ff;
+}
+
+.row-total,
+.grand-total{
+    font-weight:700;
+    color:#16a34a;
+    text-align:right;
+    background:#f0fdf4;
+}
+
+/* ===========================
+   PAYMENTS — ROW MENU (⋮)
+=========================== */
+
+.row-menu-btn{
+    background:#f3f4f6;
+    color:#4b5563;
+    width:34px;
+    height:34px;
+    border-radius:8px;
+    font-size:15px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    transition:.2s;
+}
+
+.row-menu-btn:hover,
+.row-menu-btn.active{
+    background:#e0e7ff;
+    color:#4f46e5;
+}
+
+.row-menu-popover{
+    position:fixed;
+    width:190px;
+    background:white;
+    border-radius:10px;
+    box-shadow:0 12px 30px rgba(0,0,0,.18);
+    overflow:hidden;
+    z-index:6000;
+    display:flex;
+    flex-direction:column;
+}
+
+.row-menu-item{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:12px 16px;
+    text-align:left;
+    font-size:14px;
+    color:#333;
+    background:white;
+    width:100%;
+}
+
+.row-menu-item:hover{
+    background:#f3f6fb;
+}
+
+.row-menu-item i{
+    width:16px;
+    color:#4f46e5;
+}
+
+.row-menu-danger{
+    color:#ef4444;
+}
+
+.row-menu-danger i{
+    color:#ef4444;
+}
+/* ===========================
+   ARCHIVE PAGE
+=========================== */
+
+.btn-ghost{
+    background:#f3f4f6;
+    color:#4b5563;
+    font-weight:600;
+}
+
+.btn-ghost:hover{
+    background:#e5e7eb;
+}
+
+.archive-toolbar{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    flex-wrap:wrap;
+    margin-bottom:22px;
+}
+
+.archive-search{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    background:white;
+    border:1px solid #ddd;
+    border-radius:10px;
+    padding:0 16px;
+    height:48px;
+    flex:1;
+    min-width:240px;
+    color:#999;
+}
+
+.archive-search input{
+    border:none;
+    height:100%;
+    flex:1;
+    font-size:14px;
+    color:#222;
+}
+
+.archive-search input:focus{
+    outline:none;
+}
+
+.archive-filter{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:14px;
+    font-weight:600;
+    color:#555;
+}
+
+.archive-filter select{
+    height:48px;
+    padding:0 14px;
+    border:1px solid #ddd;
+    border-radius:10px;
+    background:white;
+    font-size:14px;
+    font-weight:500;
+    color:#222;
+}
+
+.archive-count{
+    color:#777;
+    font-size:14px;
+    font-weight:600;
+    white-space:nowrap;
+    margin-left:auto;
+}
+
+/* Row highlight — click anywhere on a row to mark it for review. */
+.archive-table tbody tr{
+    cursor:pointer;
+    transition:.15s;
+}
+
+.archive-table tbody tr.row-highlighted{
+    background:#fef9c3;
+}
+
+.archive-table tbody tr.row-highlighted:hover{
+    background:#fef08a;
+}
+
+/* Column highlight — click a header to mark a whole column for comparison. */
+.archive-col-header{
+    cursor:pointer;
+    user-select:none;
+    position:relative;
+}
+
+.archive-col-header:hover{
+    background:#1d4ed8;
+}
+
+.archive-col-header.col-highlighted-header{
+    background:#4f46e5;
+}
+
+.archive-table td.col-highlighted{
+    background:#eef2ff;
+}
+
+/* Row + column intersection gets its own distinct color. */
+.archive-table tr.row-highlighted td.col-highlighted{
+    background:#d9f99d;
+}
+
+.archive-table .row-menu-btn{
+    background:#eef2ff;
+    color:#4f46e5;
+    width:34px;
+    height:34px;
+    border-radius:8px;
+}
+
+.archive-table .row-menu-btn:hover{
+    background:#c7d2fe;
+}
+
+/* ----- professional table polish ----- */
+
+.archive-table thead th{
+    position:sticky;
+    top:0;
+    z-index:10;
+    font-size:13px;
+    letter-spacing:.3px;
+    text-transform:uppercase;
+    font-weight:700;
+}
+
+.archive-table tbody tr:nth-child(even){
+    background:#fafbfd;
+}
+
+.archive-table tbody tr:nth-child(even):hover{
+    background:#f3f6fb;
+}
+
+.archive-table tbody td{
+    font-size:14px;
+}
+
+.muted-dash{
+    color:#aaa;
+}
+
+.service-tag{
+    display:inline-block;
+    background:#eef2ff;
+    color:#4338ca;
+    padding:5px 12px;
+    border-radius:20px;
+    font-size:13px;
+    font-weight:600;
+}
+
+.schedule-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:#eef2ff;
+    color:#4f46e5;
+    padding:6px 14px;
+    border-radius:20px;
+    font-size:13px;
+    font-weight:600;
+    cursor:default;
+}
+
+.schedule-badge i{
+    font-size:12px;
+}
+
+.total-paid{
+    color:#16a34a;
+    font-weight:700;
+}
+
+.total-empty{
+    color:#9ca3af;
+    font-weight:600;
+}
+
+/* ----- export button group ----- */
+
+.export-group{
+    display:flex;
+    gap:8px;
+}
+
+.btn-export{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    color:white;
+    font-weight:600;
+    font-size:14px;
+}
+
+.btn-export-pdf{
+    background:#dc2626;
+}
+
+.btn-export-pdf:hover{
+    background:#b91c1c;
+}
+
+.btn-export-excel{
+    background:#16a34a;
+}
+
+.btn-export-excel:hover{
+    background:#15803d;
+}
+
+.btn-export-word{
+    background:#2563eb;
+}
+
+.btn-export-word:hover{
+    background:#1d4ed8;
+}
+
+/* ----- details modal: identity strip + payment history ----- */
+
+.details-meta{
+    display:flex;
+    flex-wrap:wrap;
+    gap:16px;
+    padding-bottom:16px;
+    margin-bottom:16px;
+    border-bottom:1px solid #eee;
+    font-size:14px;
+    color:#555;
+    font-weight:600;
+}
+
+.details-meta i{
+    color:#2563eb;
+    margin-right:6px;
+}
+
+.details-section{
+    margin-bottom:20px;
+}
+
+.details-label{
+    font-weight:600;
+    color:#2563eb;
+    margin-bottom:8px;
+}
+
+.details-section p{
+    color:#444;
+    line-height:1.5;
+}
+
+.history-year-block{
+    background:#f8f9fc;
+    border-radius:10px;
+    padding:12px 16px;
+    margin-bottom:10px;
+}
+
+.history-year-heading{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-weight:700;
+    color:#1f2937;
+    margin-bottom:8px;
+}
+
+.history-year-total{
+    color:#2563eb;
+}
+
+.history-table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.history-table tr td{
+    padding:6px 0;
+    border-bottom:1px dashed #e2e8f0;
+    font-size:13px;
+    color:#444;
+}
+
+.history-table tr:last-child td{
+    border-bottom:none;
+}
+
+.history-amount{
+    text-align:right;
+    font-weight:600;
+    font-variant-numeric:tabular-nums;
+}
+
+.history-grand-total{
+    text-align:right;
+    font-size:15px;
+    color:#1f2937;
+    padding-top:8px;
+    border-top:2px solid #e2e8f0;
+}
+
+.history-grand-total strong{
+    color:#16a34a;
+}
+
+/* ===========================
+   REPORTS PAGE
+=========================== */
+
+.reports-toolbar{
+    margin-bottom:26px;
+}
+
+/* ----- KPI cards ----- */
+
+.kpi-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+    margin-bottom:26px;
+}
+
+@media (max-width:1100px){
+    .kpi-grid{ grid-template-columns:repeat(2,1fr); }
+}
+
+.kpi-card{
+    background:white;
+    border-radius:16px;
+    padding:22px;
+    box-shadow:0 10px 30px rgba(0,0,0,.06);
+    display:flex;
+    align-items:flex-start;
+    gap:16px;
+}
+
+.kpi-icon{
+    width:48px;
+    height:48px;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:18px;
+    flex-shrink:0;
+}
+
+.kpi-body{
+    min-width:0;
+}
+
+.kpi-label{
+    font-size:13px;
+    color:#777;
+    font-weight:600;
+    margin-bottom:6px;
+}
+
+.kpi-value{
+    font-size:22px;
+    font-weight:700;
+    color:#1f2937;
+    line-height:1.2;
+    word-break:break-word;
+}
+
+.kpi-hint{
+    font-size:12px;
+    color:#999;
+    margin-top:4px;
+}
+
+/* ----- chart cards ----- */
+
+.charts-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+    margin-bottom:20px;
+}
+
+@media (max-width:1100px){
+    .charts-row{ grid-template-columns:1fr; }
+}
+
+.chart-card{
+    background:white;
+    border-radius:16px;
+    padding:24px;
+    box-shadow:0 10px 30px rgba(0,0,0,.06);
+    min-width:0;
+}
+
+.chart-card h3{
+    font-size:15px;
+    color:#333;
+    margin-bottom:18px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.chart-card h3 i{
+    color:#2563eb;
+}
+
+.chart-canvas-wrap{
+    position:relative;
+    height:260px;
+}
+
+.chart-empty{
+    text-align:center;
+    color:#999;
+    padding:40px 10px;
+    font-size:14px;
+}
+
+.chart-empty-ok{
+    color:#16a34a;
+    font-weight:600;
+}
+
+.chart-empty-ok i{
+    display:block;
+    font-size:26px;
+    margin-bottom:10px;
+}
+
+/* ----- leaderboard ----- */
+
+.rank-list{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.rank-item{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:12px;
+    border-radius:12px;
+    background:#f8f9fc;
+}
+
+.rank-badge{
+    width:32px;
+    height:32px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:700;
+    font-size:13px;
+    color:white;
+    flex-shrink:0;
+}
+
+.rank-gold{ background:#d97706; }
+.rank-silver{ background:#94a3b8; }
+.rank-bronze{ background:#b45309; }
+.rank-default{ background:#2563eb; }
+
+.rank-info{
+    flex:1;
+    min-width:0;
+}
+
+.rank-name{
+    font-weight:600;
+    color:#1f2937;
+    font-size:14px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.rank-meta{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-top:4px;
+}
+
+.rank-market-no{
+    font-size:12px;
+    color:#999;
+}
+
+.rank-amount{
+    font-weight:700;
+    color:#16a34a;
+    white-space:nowrap;
+    font-variant-numeric:tabular-nums;
+}
+
+/* ----- category donut chart ----- */
+
+.donut-wrap{
+    display:flex;
+    align-items:center;
+    gap:24px;
+    flex-wrap:wrap;
+}
+
+.donut-svg{
+    width:180px;
+    height:180px;
+    flex-shrink:0;
+}
+
+.donut-pct-label{
+    font-size:11px;
+    font-weight:700;
+    fill:#fff;
+    paint-order:stroke;
+    stroke:rgba(0,0,0,.18);
+    stroke-width:2px;
+}
+
+.donut-legend{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    flex:1;
+    min-width:180px;
+}
+
+.donut-legend-item{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:13px;
+}
+
+.donut-legend-dot{
+    width:11px;
+    height:11px;
+    border-radius:50%;
+    flex-shrink:0;
+}
+
+.donut-legend-name{
+    color:#333;
+    font-weight:600;
+    flex:1;
+    min-width:0;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+
+.donut-legend-amount{
+    color:#666;
+    white-space:nowrap;
+    font-variant-numeric:tabular-nums;
+}
+
+.donut-legend-pct{
+    color:#999;
+    font-weight:700;
+    width:38px;
+    text-align:right;
+    flex-shrink:0;
+}
+
+/* ----- pending payments table ----- */
+
+.pending-table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.pending-table th{
+    background:#dc2626;
+    color:white;
+    padding:12px 14px;
+    font-size:13px;
+    text-align:left;
+    white-space:nowrap;
+}
+
+.pending-table td{
+    padding:12px 14px;
+    border-bottom:1px solid #fee2e2;
+    font-size:14px;
+    white-space:nowrap;
+}
+
+.pending-table tbody tr:nth-child(even){
+    background:#fef2f2;
+}
+
+.pending-table tbody tr:hover{
+    background:#fee2e2;
+}
+
+.pending-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    background:#fee2e2;
+    color:#b91c1c;
+    padding:5px 12px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:600;
+}
+
+/* ===========================
+   DASHBOARD PAGE
+=========================== */
+
+.quick-actions{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:16px;
+    margin-bottom:26px;
+}
+
+@media (max-width:1100px){
+    .quick-actions{ grid-template-columns:repeat(2,1fr); }
+}
+
+.quick-action{
+    background:white;
+    border-radius:14px;
+    padding:20px;
+    box-shadow:0 8px 22px rgba(0,0,0,.05);
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    gap:12px;
+    font-weight:600;
+    color:#1f2937;
+    transition:.2s;
+    border:1px solid transparent;
+}
+
+.quick-action:hover{
+    transform:translateY(-2px);
+    box-shadow:0 12px 28px rgba(37,99,235,.15);
+    border-color:#dbeafe;
+}
+
+.quick-action i{
+    width:42px;
+    height:42px;
+    border-radius:10px;
+    background:#eef2ff;
+    color:#2563eb;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:16px;
+}
+
+.dash-todo-items{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.dash-todo-item{
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
+    padding:12px;
+    border-radius:12px;
+    background:#fef2f2;
+}
+
+.dash-todo-item i{
+    color:#dc2626;
+    margin-top:3px;
+}
+
+.dash-todo-name{
+    font-weight:600;
+    color:#1f2937;
+    font-size:14px;
+}
+
+.dash-todo-meta{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:12px;
+    color:#777;
+    margin-top:4px;
+    flex-wrap:wrap;
+}
+
+.dash-see-all{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    margin-top:14px;
+    font-size:13px;
+    font-weight:600;
+    color:#2563eb;
+}
+
+.dash-see-all:hover{
+    text-decoration:underline;
+}
+
+.dash-fatal-error{
+    background:#fef2f2;
+    border:1px solid #fecaca;
+    color:#b91c1c;
+    padding:14px 18px;
+    border-radius:12px;
+    margin-bottom:20px;
+    font-size:14px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.dash-section-error{
+    color:#b91c1c;
+    background:#fef2f2;
+    border-radius:10px;
+    padding:16px;
+    font-size:13px;
+    text-align:center;
+}
+
+/* ----- pending-table group divider rows (used to group the
+   same pending-table look by service or by year) ----- */
+
+.pending-divider-row td{
+    background:#1e293b !important;
+    padding:8px 14px !important;
+    border-bottom:none !important;
+}
+
+.pending-divider-row:hover td{
+    background:#1e293b !important;
+}
+
+.pending-divider-count{
+    color:#cbd5e1;
+    font-size:12px;
+    font-weight:600;
+    margin-left:10px;
+}
+
+.year-tag{
+    display:inline-flex;
+    align-items:center;
+    background:#2563eb;
+    color:white;
+    padding:4px 12px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:700;
+}
