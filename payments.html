@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paiements</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+
+<body>
+
+<div class="wrapper">
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            <i class="fa-solid fa-building-columns"></i>
+           PAYTRACK
+        </div>
+
+        <nav>
+
+            <a href="dashboard.html">
+                <i class="fa-solid fa-chart-line"></i>
+                Tableau de bord
+            </a>
+
+            <a href="companies.html">
+                <i class="fa-solid fa-building"></i>
+                Entreprises
+            </a>
+
+            <a href="payments.html" class="active">
+                <i class="fa-solid fa-money-check-dollar"></i>
+                Paiements
+            </a>
+
+            <a href="archive.html">
+                <i class="fa-solid fa-box-archive"></i>
+               Archives
+            </a>
+
+           
+
+            <a href="settings.html">
+                <i class="fa-solid fa-gear"></i>
+                Paramètres
+            </a>
+
+        </nav>
+
+    </aside>
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="main">
+
+        <div class="topbar">
+
+            <div>
+
+                <h1>Paiements</h1>
+
+                <p>Suivez les paiements de chaque entreprise selon son service et son échéancier</p>
+
+            </div>
+
+            <button type="button" id="refreshPayments" class="btn">
+                <i class="fa-solid fa-arrows-rotate"></i>
+                Actualiser
+            </button>
+
+        </div>
+
+        <!-- ================= PAYMENT TABLES ================= -->
+
+        <div id="paymentsContainer">
+            <!-- Tables are generated automatically by js/payments.js -->
+        </div>
+
+    </main>
+
+</div>
+
+<!-- ================= DETAILS MODAL ================= -->
+<!-- Shows "Objet" and "Commentaires" for a company on click,   -->
+<!-- so the tables don't stay crowded with long text.           -->
+<div class="modal" id="detailsModal">
+    <div class="modal-content">
+
+        <h2 id="detailsModalTitle">Détails</h2>
+
+        <div style="margin-top:18px;">
+            <p style="font-weight:600; color:#2563eb; margin-bottom:6px;">
+                <i class="fa-solid fa-file-lines"></i> Objet
+            </p>
+            <p id="detailsModalObject" style="margin-bottom:18px; color:#444; line-height:1.5;"></p>
+
+            <p style="font-weight:600; color:#2563eb; margin-bottom:6px;">
+                <i class="fa-solid fa-comment"></i> Commentaires
+            </p>
+            <p id="detailsModalComment" style="color:#444; line-height:1.5;"></p>
+        </div>
+
+        <div style="text-align:right; margin-top:25px;">
+            <button type="button" class="btn btn-primary" id="closeDetailsModal">Fermer</button>
+        </div>
+
+    </div>
+</div>
+
+<script src="js/payments.js"></script>
+
+</body>
+
+</html>

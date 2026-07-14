@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paramètres</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <style>
+        .settings-card{ max-width:560px; }
+        .settings-card .btn-row{ display:flex; gap:10px; flex-wrap:wrap; margin-top:16px; }
+        .settings-card p.desc{ color:#777; font-size:13.5px; line-height:1.6; margin-bottom:0; }
+        .settings-card .last-action{ font-size:12.5px; color:#999; margin-top:14px; }
+
+        .data-summary{
+            display:flex; gap:22px; background:#f8f9fc; border-radius:12px;
+            padding:14px 18px; margin:16px 0 4px 0;
+        }
+        .data-summary .stat .val{ font-size:19px; font-weight:700; color:#1f2937; }
+        .data-summary .stat .lbl{ font-size:12px; color:#888; margin-top:2px; }
+
+        .danger-box{
+            border:1px solid #fecaca; background:#fef2f2; border-radius:14px;
+            padding:16px 20px; margin-top:22px;
+        }
+        .danger-box p{ margin:0 0 12px 0; font-size:13px; color:#9a4646; line-height:1.5; }
+
+        .about-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:18px; max-width:560px; }
+        .about-stat{ background:#f8f9fc; border-radius:12px; padding:16px 18px; }
+        .about-stat .val{ font-size:20px; font-weight:700; color:#1f2937; }
+        .about-stat .lbl{ font-size:12.5px; color:#888; margin-top:4px; }
+        .about-version{ font-size:12.5px; color:#999; margin-top:14px; }
+
+        .settings-section{ margin-bottom:28px; }
+        .settings-section-head{ display:flex; align-items:center; gap:12px; margin-bottom:14px; }
+        .settings-section-head i{
+            width:38px; height:38px; border-radius:10px;
+            background:#eef2ff; color:#2563eb;
+            display:flex; align-items:center; justify-content:center; font-size:15px; flex-shrink:0;
+        }
+        .settings-section-head h2{ font-size:16px; color:#1f2937; }
+
+        #importFileInput{ display:none; }
+
+        .settings-toast{
+            position:fixed; bottom:28px; right:28px;
+            background:#1f2937; color:#fff; padding:13px 20px; border-radius:10px;
+            font-size:13.5px; font-weight:600; box-shadow:0 10px 30px rgba(0,0,0,.2);
+            display:flex; align-items:center; gap:10px;
+            opacity:0; transform:translateY(10px); pointer-events:none;
+            transition:.25s; z-index:9999; max-width:360px;
+        }
+        .settings-toast.show{ opacity:1; transform:translateY(0); }
+        .settings-toast i{ color:#4ade80; }
+        .settings-toast.error i{ color:#f87171; }
+
+        /* ---- custom modal (replaces browser confirm/prompt for reset) ---- */
+        .modal-overlay{
+            position:fixed; inset:0; background:rgba(17,24,39,.55);
+            display:none; align-items:center; justify-content:center; z-index:10000;
+        }
+        .modal-overlay.show{ display:flex; }
+        .modal-box{
+            background:#fff; border-radius:16px; padding:26px 28px; width:400px; max-width:90vw;
+            box-shadow:0 20px 60px rgba(0,0,0,.25);
+        }
+        .modal-box .modal-icon{
+            width:46px; height:46px; border-radius:50%; background:#fef2f2; color:#dc2626;
+            display:flex; align-items:center; justify-content:center; font-size:19px; margin-bottom:14px;
+        }
+        .modal-box h3{ font-size:16px; color:#1f2937; margin-bottom:8px; }
+        .modal-box p{ font-size:13.5px; color:#666; line-height:1.55; margin-bottom:16px; }
+        .modal-box label{ font-size:12.5px; font-weight:600; color:#333; display:block; margin-bottom:6px; }
+        .modal-box input{
+            width:100%; padding:10px 12px; border:1px solid #ddd; border-radius:8px; font-size:14px; margin-bottom:18px;
+        }
+        .modal-box .modal-actions{ display:flex; justify-content:flex-end; gap:10px; }
+    </style>
+</head>
+
+<body>
+
+<div class="wrapper">
+
+    <aside class="sidebar">
+        <div class="logo">
+            <i class="fa-solid fa-building-columns"></i>
+           PAYTRACK
+        </div>
+        <nav>
+            <a href="dashboard.html">
+                <i class="fa-solid fa-chart-line"></i>
+                Tableau de bord
+            </a>
+            <a href="companies.html">
+                <i class="fa-solid fa-building"></i>
+                Entreprises
+            </a>
+            <a href="payments.html">
+                <i class="fa-solid fa-money-check-dollar"></i>
+                Paiements
+            </a>
+            <a href="archive.html">
+                <i class="fa-solid fa-box-archive"></i>
+               Archives
+            </a>
+            <a href="settings.html" class="active">
+                <i class="fa-solid fa-gear"></i>
+                Paramètres
+            </a>
+        </nav>
+    </aside>
+
+    <main class="main">
+
+        <div class="topbar">
+            <div>
+                <h1>Paramètres</h1>
+                <p>Vos données, en sécurité</p>
+            </div>
+        </div>
+
+        <!-- ================= DONNEES ================= -->
+        <div class="settings-section">
+            <div class="settings-section-head">
+                <i class="fa-solid fa-database"></i>
+                <h2>Vos données</h2>
+            </div>
+
+            <div class="form-card settings-card">
+                <p class="desc">
+                    Toutes vos entreprises et vos paiements sont stockés uniquement dans ce navigateur.
+                    Exportez-les de temps en temps pour ne rien perdre.
+                </p>
+
+                <div class="data-summary" id="settDataSummary"></div>
+
+                <div class="btn-row">
+                    <button type="button" class="btn btn-export btn-export-excel" id="settExportBtn">
+                        <i class="fa-solid fa-download"></i> Exporter mes données
+                    </button>
+                    <button type="button" class="btn btn-ghost" id="settImportBtn">
+                        <i class="fa-solid fa-upload"></i> Importer une sauvegarde
+                    </button>
+                    <input type="file" id="importFileInput" accept="application/json">
+                </div>
+
+                <p class="last-action" id="settLastExport">Dernière exportation : jamais</p>
+
+                <div class="danger-box">
+                    <p><strong>Réinitialiser</strong> — supprime définitivement tout ce qui est enregistré ici. Exportez d'abord si vous n'êtes pas sûr.</p>
+                    <button type="button" class="btn btn-danger" id="settResetBtn">
+                        <i class="fa-solid fa-trash"></i> Tout réinitialiser
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= A PROPOS ================= -->
+        <div class="settings-section">
+            <div class="settings-section-head">
+                <i class="fa-solid fa-circle-info"></i>
+                <h2>À propos</h2>
+            </div>
+
+            <div class="form-card">
+                <p class="about-version" style="margin-top:0;">PAYTRACK — version 1.0, application locale de suivi des paiements par service</p>
+            </div>
+        </div>
+
+    </main>
+
+</div>
+
+<div class="settings-toast" id="settToast"><i class="fa-solid fa-circle-check"></i> <span id="settToastText"></span></div>
+
+<!-- ================= RESET MODAL ================= -->
+<div class="modal-overlay" id="resetModalOverlay">
+    <div class="modal-box">
+        <div class="modal-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+        <h3>Réinitialiser toutes les données ?</h3>
+        <p id="resetModalText">Cette action supprime définitivement vos entreprises, paiements et archives de ce navigateur. Elle est irréversible.</p>
+        <label for="resetConfirmInput">Tapez <strong>SUPPRIMER</strong> pour confirmer</label>
+        <input type="text" id="resetConfirmInput" autocomplete="off">
+        <div class="modal-actions">
+            <button type="button" class="btn btn-ghost" id="resetCancelBtn">Annuler</button>
+            <button type="button" class="btn btn-danger" id="resetConfirmBtn">Réinitialiser</button>
+        </div>
+    </div>
+</div>
+
+<script src="js/settings.js"></script>
+</body>
+
+</html>

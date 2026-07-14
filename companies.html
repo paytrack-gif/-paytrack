@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entreprises</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+
+<body>
+
+<div class="wrapper">
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            <i class="fa-solid fa-building-columns"></i>
+           PAYTRACK
+        </div>
+
+        <nav>
+
+            <a href="dashboard.html">
+                <i class="fa-solid fa-chart-line"></i>
+                Tableau de bord
+            </a>
+
+            <a href="companies.html" class="active">
+                <i class="fa-solid fa-building"></i>
+                Entreprises
+            </a>
+
+            <a href="payments.html">
+                <i class="fa-solid fa-money-check-dollar"></i>
+                Paiements
+            </a>
+
+            <a href="archive.html">
+                <i class="fa-solid fa-box-archive"></i>
+               Archives
+            </a>
+
+            
+
+            <a href="settings.html">
+                <i class="fa-solid fa-gear"></i>
+                Paramètres
+            </a>
+
+        </nav>
+
+    </aside>
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="main">
+
+        <div class="topbar">
+
+            <div>
+
+                <h1>Entreprises</h1>
+
+                <p>Entreprises
+Enregistrer les entreprises et gérer les échéanciers de paiement</p>
+
+            </div>
+
+        </div>
+
+        <!-- ================= COMPANY FORM ================= -->
+
+        <div class="form-card">
+
+            <h2>Enregistrer une entreprise</h2>
+
+            <br>
+
+            <form id="companyForm">
+
+                <div class="form-grid">
+
+                    <!-- Company Number -->
+
+                    <div class="form-group">
+
+                        <label>N⁰ de marché *</label>
+
+                        <input
+                            type="text"
+                            id="companyNumber"
+                            required>
+
+                    </div>
+
+                    <!-- Company Name -->
+
+                    <div class="form-group">
+
+                        <label>Nom de l'entreprise *</label>
+
+                        <input
+                            type="text"
+                            id="companyName"
+                            required>
+
+                    </div>
+
+                    <!-- Category -->
+
+                    <div class="form-group">
+
+                        <label>Service*</label>
+
+                        <div class="custom-select">
+
+    <div class="select-box" id="selectBox">
+
+        <span id="selectedCategory">
+           Nettoyage
+        </span>
+
+        <i class="fa-solid fa-chevron-down"></i>
+
+    </div>
+
+    <div class="select-menu" id="selectMenu">
+
+        <div class="option">Nettoyage</div>
+
+      
+
+        <div class="option">Gardiennage</div>
+
+        <div class="option">Restauration</div>
+
+        <div class="option">Dar Etalib</div>
+
+        <hr>
+
+        <div class="add-category" id="addCategoryBtn">
+
+    <i class="fa-solid fa-plus"></i>
+
+    Ajouter un nouveau service
+
+</div>
+
+    </div>
+
+</div>
+
+<input
+type="hidden"
+id="category"
+value="Nettoyage">
+
+                    </div>
+
+                    <!-- Start Year -->
+
+                    <div class="form-group">
+
+                        <label>Année de début du contrat *</label>
+
+                        <input
+                            type="number"
+                            id="startYear"
+                            value="2023">
+
+                    </div>
+
+                </div>                <!-- ================= PAYMENT SCHEDULE ================= -->
+
+                <div class="form-group" style="margin-top:30px;">
+
+                    <label><strong>Échéancier de paiement *</strong></label>
+
+                    <div class="schedule-options">
+
+                        <label>
+
+                            <input
+                                type="radio"
+                                name="scheduleType"
+                                value="default"
+                                checked>
+
+                           
+                           Utiliser l'échéancier par défaut
+
+                        </label>
+
+                        <label>
+
+                            <input
+                                type="radio"
+                                name="scheduleType"
+                                value="custom">
+                           Échéancier personnalisé
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Default Schedule Preview -->
+
+                <div class="form-group">
+
+                    <label>Échéancier de paiement par défaut</label>
+
+                    <div id="defaultSchedulePreview"
+                         class="schedule-preview">
+
+                    </div>
+
+                </div>
+
+
+                <!-- ================= CUSTOM SCHEDULE ================= -->
+
+              
+         
+          
+<!-- ================= CUSTOM SCHEDULE ================= -->
+
+<div id="customSchedule" style="display:none;">
+
+    <br>
+
+    <h3>Échéancier personnalisé</h3>
+
+    <br>
+
+   <button
+    type="button"
+    id="addCustomPeriod"
+    class="btn">
+
+    Ajouter une période
+
+</button>
+
+    <br><br>
+
+    <div id="customPeriodContainer" class="form-grid">
+
+        <div class="form-group">
+            <label>Periode 1</label>
+            <input
+                type="text"
+                id="period1"
+                placeholder="Example : Jan-Feb">
+        </div>
+
+        <div class="form-group">
+            <label>Periode 2</label>
+            <input
+                type="text"
+                id="period2"
+                placeholder="Example : Mar-Jun">
+        </div>
+
+        <div class="form-group">
+            <label>Periode 3</label>
+            <input
+                type="text"
+                id="period3"
+                placeholder="Example : Jul-Oct">
+        </div>
+
+        <div class="form-group">
+            <label>Periode 4</label>
+            <input
+                type="text"
+                id="period4"
+                placeholder="Example : Nov-Dec">
+        </div>
+         
+
+
+    </div>
+
+</div>
+
+                <br>
+
+                <!-- ================= OBJECT ================= -->
+
+                <div class="form-group">
+
+                    <label>Object (optionnel)</label>
+
+                    <textarea
+                        id="companyObject"
+                        rows="3"></textarea>
+
+                </div>
+
+                <br>
+
+                <!-- ================= COMMENTS ================= -->
+
+                <div class="form-group">
+
+                    <label>Commentaires (optionnel)</label>
+
+                    <textarea
+                        id="companyComment"
+                        rows="3"></textarea>
+
+                </div>
+
+                <br>
+
+                <button
+                    type="submit"
+                    class="btn btn-primary">
+
+                    <i class="fa-solid fa-floppy-disk"></i>
+
+                    Enregistrer l'entreprise
+
+                </button>
+
+            </form>
+
+        </div>        <!-- ================= COMPANIES TABLE ================= -->
+
+        <div class="table-card">
+
+            <div class="topbar">
+
+                <div>
+
+                    <h2>Entreprises enregistrées</h2>
+
+                    <p>Toutes les entreprises enregistrées apparaîtront ici.</p>
+
+                </div>
+
+            </div>
+
+            <div class="table-wrapper">
+
+                <table id="companiesTable">
+
+                    <thead>
+                        <tr>
+                            <th>Num</th>
+                            <th>N° de marché</th>
+                            <th>Nom de l'entreprise</th>
+                            <th>Service</th>
+                            <th>Début du contrat</th>
+                            <th>Échéancier</th>
+                            <th>Objet</th>
+                            <th>Commentaires</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="companiesTableBody">
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+        
+<!-- ================= ADD CATEGORY MODAL ================= -->
+
+<div id="categoryModal" class="modal">
+
+    <div class="modal-content">
+
+        <h2>Ajouter un nouveau service</h2>
+
+        <br>
+
+        <div class="form-group">
+
+            <label>Nom de service</label>
+
+            <input
+                type="text"
+                id="newCategoryName"
+                placeholder="Nom de service">
+
+        </div>
+
+        <br>
+
+        <h3>Échéancier de paiement par défaut</h3>
+
+        <br>
+
+        <div id="periodContainer">
+
+            <div class="form-group">
+
+                <label>Periode 1</label>
+
+                <input
+                    type="text"
+                    class="newPeriod"
+                    placeholder="Exemple : 01/03">
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Periode 2</label>
+
+                <input
+                    type="text"
+                    class="newPeriod"
+                    placeholder="Exemple : 04/06">
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Periode 3</label>
+
+                <input
+                    type="text"
+                    class="newPeriod"
+                    placeholder="Exemple : 07/09">
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Periode 4</label>
+
+                <input
+                    type="text"
+                    class="newPeriod"
+                    placeholder="Exemple : 10/12">
+
+            </div>
+
+        </div>
+
+        <br>
+
+        <button
+            type="button"
+            id="addPeriod"
+            class="btn">
+
+           
+            Ajouter un periode
+
+        </button>
+
+        <br><br>
+<button
+    type="button"
+    id="saveCategory"
+    class="btn btn-primary">
+
+    Enregistrer le service
+
+</button>
+       
+
+        <button
+            type="button"
+            id="closeModal"
+            class="btn">
+
+           Annuler
+
+        </button>
+
+    </div>
+
+</div>
+
+<script src="js/companies.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Archives</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+
+<body>
+
+<div class="wrapper">
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            <i class="fa-solid fa-building-columns"></i>
+           PAYTRACK
+        </div>
+
+        <nav>
+
+            <a href="dashboard.html">
+                <i class="fa-solid fa-chart-line"></i>
+                Tableau de bord
+            </a>
+
+            <a href="companies.html">
+                <i class="fa-solid fa-building"></i>
+                Entreprises
+            </a>
+
+            <a href="payments.html">
+                <i class="fa-solid fa-money-check-dollar"></i>
+                Paiements
+            </a>
+
+            <a href="archive.html" class="active">
+                <i class="fa-solid fa-box-archive"></i>
+               Archives
+            </a>
+
+           
+
+            <a href="settings.html">
+                <i class="fa-solid fa-gear"></i>
+                Paramètres
+            </a>
+
+        </nav>
+
+    </aside>
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="main">
+
+        <div class="topbar">
+
+            <div>
+
+                <h1>Archives</h1>
+
+                <p>Toutes les entreprises, tous services confondus — recherchez, filtrez et surlignez librement</p>
+
+            </div>
+
+            <button type="button" id="refreshArchive" class="btn">
+                <i class="fa-solid fa-arrows-rotate"></i>
+                Actualiser 
+            </button>
+
+        </div>
+
+        <!-- ================= TOOLBAR ================= -->
+
+        <div class="archive-toolbar">
+
+            <div class="archive-search">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="archiveSearchInput" placeholder="Rechercher une entreprise, un n° de marché...">
+            </div>
+
+            <div class="archive-filter">
+                <label for="archiveServiceFilter">Service</label>
+                <select id="archiveServiceFilter">
+                    <option value="">Tous</option>
+                </select>
+            </div>
+
+            <div class="archive-filter">
+                <label for="archiveYearFilter">Début</label>
+                <select id="archiveYearFilter">
+                    <option value="">Toutes années</option>
+                </select>
+            </div>
+
+            <button type="button" id="clearHighlightsBtn" class="btn btn-ghost">
+                <i class="fa-solid fa-eraser"></i>
+                Effacer les surlignages
+            </button>
+
+            <div class="export-group">
+                <button type="button" id="exportPDF" class="btn btn-export btn-export-pdf" title="Exporter en PDF">
+                    <i class="fa-solid fa-file-pdf"></i> PDF
+                </button>
+                <button type="button" id="exportExcel" class="btn btn-export btn-export-excel" title="Exporter en Excel">
+                    <i class="fa-solid fa-file-excel"></i> Excel
+                </button>
+                <button type="button" id="exportWord" class="btn btn-export btn-export-word" title="Exporter en Word">
+                    <i class="fa-solid fa-file-word"></i> Word
+                </button>
+            </div>
+
+            <div class="archive-count" id="archiveCount"></div>
+
+        </div>
+
+        <!-- ================= ARCHIVE TABLE ================= -->
+
+        <div id="archiveContainer">
+            <!-- Table is generated automatically by js/archive.js -->
+        </div>
+
+    </main>
+
+</div>
+
+<!-- ================= DETAILS MODAL ================= -->
+<div class="modal" id="detailsModal">
+    <div class="modal-content">
+
+        <h2 id="detailsModalTitle">Détails</h2>
+
+        <div id="detailsModalBody" style="margin-top:18px;">
+            <!-- Populated dynamically by js/archive.js -->
+        </div>
+
+        <div style="text-align:right; margin-top:25px;">
+            <button type="button" class="btn btn-primary" id="closeDetailsModal">Fermer</button>
+        </div>
+
+    </div>
+</div>
+
+<script src="js/archive.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau de bord</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+
+<body>
+
+<div class="wrapper">
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            <i class="fa-solid fa-building-columns"></i>
+           PAYTRACK
+        </div>
+
+        <nav>
+
+            <a href="dashboard.html" class="active">
+                <i class="fa-solid fa-chart-line"></i>
+                Tableau de bord
+            </a>
+
+            <a href="companies.html">
+                <i class="fa-solid fa-building"></i>
+                Entreprises
+            </a>
+
+            <a href="payments.html">
+                <i class="fa-solid fa-money-check-dollar"></i>
+                Paiements
+            </a>
+
+            <a href="archive.html">
+                <i class="fa-solid fa-box-archive"></i>
+               Archives
+            </a>
+
+            <a href="settings.html">
+                <i class="fa-solid fa-gear"></i>
+                Paramètres
+            </a>
+
+        </nav>
+
+    </aside>
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="main">
+
+        <div class="topbar">
+
+            <div>
+
+                <h1 id="dashboardGreeting">Tableau de bord</h1>
+
+                <p id="dashboardDate"></p>
+
+            </div>
+
+            <div class="export-group">
+                <button type="button" id="refreshDashboard" class="btn btn-ghost">
+                    <i class="fa-solid fa-arrows-rotate"></i>
+                    Actualiser
+                </button>
+                <button type="button" id="exportDashboardPDF" class="btn btn-export btn-export-pdf" title="Exporter en PDF">
+                    <i class="fa-solid fa-file-pdf"></i> Exporter en PDF
+                </button>
+            </div>
+
+        </div>
+
+        <div id="dashboardFatalError" class="dash-fatal-error" style="display:none;"></div>
+
+        <!-- ================= SCOPE FILTER ================= -->
+
+        <div class="archive-toolbar reports-toolbar">
+            <div class="archive-filter">
+                <label for="dashYearFilter">Année</label>
+                <select id="dashYearFilter">
+                    <option value="">Toutes années</option>
+                </select>
+            </div>
+            <div class="archive-count" id="dashScopeNote"></div>
+        </div>
+
+        <!-- ================= KPI CARDS ================= -->
+
+        <div class="kpi-grid" id="dashKpiGrid"></div>
+
+        <!-- ================= QUICK ACTIONS ================= -->
+
+        <div class="quick-actions" id="quickActions">
+            <a href="companies.html" class="quick-action">
+                <i class="fa-solid fa-building-circle-arrow-right"></i>
+                <span>Nouvelle entreprise</span>
+            </a>
+            <a href="payments.html" class="quick-action">
+                <i class="fa-solid fa-circle-plus"></i>
+                <span>Saisir un paiement</span>
+            </a>
+            <a href="archive.html" class="quick-action">
+                <i class="fa-solid fa-box-archive"></i>
+                <span>Consulter les archives</span>
+            </a>
+        </div>
+
+        <!-- ================= PÉRIODES NON PAYÉES (original chart position) ================= -->
+
+        <div class="charts-row">
+
+            <div class="chart-card" style="grid-column:1 / -1;">
+                <h3><i class="fa-solid fa-layer-group"></i> Périodes non payées par service — <span id="dashYearLabel"></span></h3>
+                <div id="dashPendingPeriods"></div>
+            </div>
+
+        </div>
+
+        <!-- ================= CLASSEMENT + RÉPARTITION PAR CATÉGORIE (side by side, half width each) ================= -->
+
+        <div class="charts-row">
+
+            <div class="chart-card">
+                <h3><i class="fa-solid fa-ranking-star"></i> Classement des entreprises</h3>
+                <div id="dashRankList" class="rank-list"></div>
+            </div>
+
+            <div class="chart-card">
+                <h3><i class="fa-solid fa-chart-pie"></i> Paiements par catégorie — <span id="dashDonutYearLabel"></span></h3>
+                <div id="dashCategoryDonut"></div>
+            </div>
+
+        </div>
+
+        <!-- ================= RECENT COMPANIES ================= -->
+
+        <div class="charts-row">
+
+            <div class="chart-card" style="grid-column:1 / -1;">
+                <h3><i class="fa-solid fa-clock-rotate-left"></i> Entreprises récemment ajoutées</h3>
+                <div id="dashRecentCompanies"></div>
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+<script src="js/dashboard.js"></script>
+</body>
+
+</html>
