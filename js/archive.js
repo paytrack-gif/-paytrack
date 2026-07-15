@@ -723,21 +723,58 @@ function getYearPeriodStructure(payload) {
     const yearMap = new Map();
 
     payload.forEach(c => {
-        c.history.forEach(yg => {
 
-            if (!yearMap.has(yg.year)) yearMap.set(yg.year, new Map());
-            const periods = yearMap.get(yg.year);
+        if (c.history.length) {
 
-            yg.entries.forEach(entry => {
-                if (!periods.has(entry.label)) {
-                    periods.set(entry.label, {
-                        order: periods.size,
-                        sortDate: extractSortDate(entry.label)
-                    });
-                }
+            c.history.forEach(yg => {
+
+                if (!yearMap.has(yg.year)) yearMap.set(yg.year, new Map());
+                const periods = yearMap.get(yg.year);
+
+                yg.entries.forEach(entry => {
+                    if (!periods.has(entry.label)) {
+                        periods.set(entry.label, {
+                            order: periods.size,
+                            sortDate: extractSortDate(entry.label)
+                        });
+                    }
+                });
+
             });
 
+            return;
+
+        }
+
+        // No payments recorded yet for this company — without this,
+        // it contributes zero year/period columns, and if every
+        // company in its schedule-group block is in the same boat
+        // (e.g. a single freshly-added company with no payments),
+        // the pivot table collapses down to just "N° de marché" /
+        // "STE" with nothing else, and the export shrinks to a tiny,
+        // seemingly "broken" page. Instead, fall back to the
+        // company's own échéancier so its scheduled periods still
+        // show up as empty columns — under its start year if known,
+        // otherwise the current year — so the table (and page size)
+        // reflect the schedule even before any payment exists.
+        if (!c.scheduleText || c.scheduleText === "—") return;
+
+        const year = Number.isFinite(parseInt(c.startYear, 10))
+            ? parseInt(c.startYear, 10)
+            : new Date().getFullYear();
+
+        if (!yearMap.has(year)) yearMap.set(year, new Map());
+        const periods = yearMap.get(year);
+
+        c.scheduleText.split(" · ").forEach(label => {
+            if (!periods.has(label)) {
+                periods.set(label, {
+                    order: periods.size,
+                    sortDate: extractSortDate(label)
+                });
+            }
         });
+
     });
 
     return Array.from(yearMap.keys())
@@ -894,13 +931,14 @@ function exportToPdf() {
     const marginRight = 8;
     const marginTop = 10;
     const marginBottom = 10;
-    const COL = { number: 24, name: 46, period: 16 };
     const ROW_H = 6.5;
     const HEADER_H = 15;
     const TITLE_H = 9;
     const SUBTITLE_H = 7;
     const BLOCK_GAP = 6;
     const TOP_H = 16;
+    const AMOUNT_FONT_SIZE = 7;
+    const CELL_PADDING = 1.6;
 
     // Pass 1 — build every block (one per service+schedule combo) and
     // work out how wide/tall the finished page needs to be.
@@ -909,24 +947,59 @@ function exportToPdf() {
         catGroup.scheduleGroups.forEach((schedGroup, idx) => {
 
             const { structure, rows } = buildPivotTable(schedGroup.rows);
-            const periodCols = structure.reduce((s, y) => s + y.periods.length, 0);
-            const tableWidth = COL.number + COL.name + periodCols * COL.period;
 
             blocks.push({
                 category: catGroup.category,
                 isFirstOfCategory: idx === 0,
                 scheduleText: schedGroup.scheduleText,
                 structure,
-                rows,
-                tableWidth,
-                tableHeight: HEADER_H + rows.length * ROW_H
+                rows
             });
 
         });
     });
 
+    // The period column width used to be a fixed 16mm guess. That was
+    // fine for small amounts but way too narrow for a full formatted
+    // total like "222 222,00" — autoTable then had no choice but to
+    // squeeze the column down until each digit sat on its own line
+    // (exactly what showed up in the exported PDF). Instead, measure
+    // the actual widest formatted amount that will be printed, at the
+    // real export font size, and size every period column to fit it.
+    const measureDoc = new jsPDF({ unit: "mm" });
+    measureDoc.setFontSize(AMOUNT_FONT_SIZE);
+    let maxAmountWidth = 0;
+    blocks.forEach(b => {
+        b.rows.forEach(r => {
+            b.structure.forEach(y2 => {
+                y2.periods.forEach(p => {
+                    const val = r.cells[`${y2.year}::${p}`];
+                    if (!val) return;
+                    const w = measureDoc.getTextWidth(formatMoney(val));
+                    if (w > maxAmountWidth) maxAmountWidth = w;
+                });
+            });
+        });
+    });
+
+    const COL = {
+        number: 24,
+        name: 46,
+        period: Math.max(maxAmountWidth + CELL_PADDING * 2 + 1, 16)
+    };
+
+    blocks.forEach(b => {
+        const periodCols = b.structure.reduce((s, y) => s + y.periods.length, 0);
+        b.tableWidth = COL.number + COL.name + periodCols * COL.period;
+        b.tableHeight = HEADER_H + b.rows.length * ROW_H;
+    });
+
     const maxTableWidth = blocks.reduce((m, b) => Math.max(m, b.tableWidth), 0);
-    const pageWidth = Math.max(maxTableWidth + marginLeft + marginRight, 110);
+    // Page is sized to the widest table, but never narrower than a
+    // standard A4-landscape width (297mm) — so small tables (few
+    // columns, or none yet) still get a proper wide/horizontal page
+    // instead of shrinking down to a tiny, squarish one.
+    const pageWidth = Math.max(maxTableWidth + marginLeft + marginRight, 297);
 
     let pageHeight = marginTop + TOP_H;
     blocks.forEach(b => {
@@ -935,7 +1008,17 @@ function exportToPdf() {
     });
     pageHeight += marginBottom;
 
-    const doc = new jsPDF({ unit: "mm", format: [pageWidth, pageHeight] });
+    const doc = new jsPDF({
+        unit: "mm",
+        format: [pageWidth, pageHeight],
+        // Without this, jsPDF defaults to "portrait" and silently
+        // swaps width/height back so height >= width — which took our
+        // deliberately wide, short page and flipped it into a narrow,
+        // tall one, clipping every period column past the real (now
+        // ~70mm) page edge. Forcing landscape explicitly keeps the
+        // dimensions exactly as computed above.
+        orientation: pageWidth >= pageHeight ? "landscape" : "portrait"
+    });
 
     let y = marginTop;
 
@@ -1004,17 +1087,34 @@ function exportToPdf() {
 
         });
 
+        // Explicit cellWidth per column (rather than tableWidth:"auto")
+        // is what stops autoTable from re-computing its own "ideal"
+        // widths and then shrinking everything proportionally to fit —
+        // that shrink step is what was crushing amount columns down to
+        // one digit per line for large totals.
+        const columnStyles = {
+            0: { halign: "left", cellWidth: COL.number },
+            1: { halign: "left", cellWidth: COL.name }
+        };
+        let colIdx = 2;
+        t.structure.forEach(y2 => {
+            y2.periods.forEach(() => {
+                columnStyles[colIdx] = { cellWidth: COL.period };
+                colIdx++;
+            });
+        });
+
         doc.autoTable({
             startY: y,
             margin: { left: marginLeft, right: marginRight },
             head: [headRow1, headRow2],
             body,
             theme: "grid",
-            styles: { fontSize: 7, cellPadding: 1.6, halign: "right" },
+            styles: { fontSize: AMOUNT_FONT_SIZE, cellPadding: CELL_PADDING, halign: "right", overflow: "visible" },
             headStyles: { fillColor: [37, 99, 235], textColor: 255, fontStyle: "bold", halign: "center" },
-            columnStyles: { 0: { halign: "left" }, 1: { halign: "left" } },
+            columnStyles,
             alternateRowStyles: { fillColor: [245, 247, 251] },
-            tableWidth: "auto",
+            tableWidth: "wrap",
             rowPageBreak: "avoid",
             pageBreak: "avoid"
         });
@@ -1246,16 +1346,6 @@ function exportToWord() {
     // spreadsheet (blue for one year, green for the next, and so on).
     const YEAR_COLORS = ["#2563eb", "#16a34a", "#d97706", "#7c3aed", "#dc2626"];
 
-    // Same per-column widths (in mm) used for the PDF export, so both
-    // documents size their pages the same way. Used here to (a) work
-    // out how wide the page itself needs to be so Word never clips a
-    // year off the right edge, and (b) give every table an explicit
-    // <colgroup> so its columns keep sensible proportions instead of
-    // Word auto-sizing them from cell content — that auto-sizing is
-    // what let some tables grow wider than the page and lose their
-    // rightmost (most recent) year columns.
-    const COL_MM = { number: 24, name: 46, period: 16 };
-
     // One block per service, then per schedule within that service —
     // same grouping as the Excel export, so the Word doc reads the
     // same way. Every service gets its own title bar so which service
@@ -1273,6 +1363,32 @@ function exportToWord() {
             });
         });
     });
+
+    // Per-column widths (in mm). The period width used to be a fixed
+    // 16mm guess, which was too narrow for large formatted totals —
+    // combined with the cell's `overflow:hidden`, that either wrapped
+    // digits one-per-line or clipped them outright in Word. Instead,
+    // measure the actual widest formatted amount (via a scratch jsPDF
+    // instance, same technique as the PDF export) and size the column
+    // to fit it.
+    let maxAmountWidth = 0;
+    if (window.jspdf) {
+        const measureDoc = new window.jspdf.jsPDF({ unit: "mm" });
+        measureDoc.setFontSize(9);
+        blocks.forEach(b => {
+            b.pivot.rows.forEach(r => {
+                b.pivot.structure.forEach(y2 => {
+                    y2.periods.forEach(p => {
+                        const val = r.cells[`${y2.year}::${p}`];
+                        if (!val) return;
+                        const w = measureDoc.getTextWidth(formatMoney(val));
+                        if (w > maxAmountWidth) maxAmountWidth = w;
+                    });
+                });
+            });
+        });
+    }
+    const COL_MM = { number: 24, name: 46, period: Math.max(maxAmountWidth + 5, 16) };
 
     let maxTableWidthMm = 0;
     blocks.forEach(b => {
@@ -1386,7 +1502,7 @@ function exportToWord() {
                     margin-bottom:16px;
                 }
                 table.pivot{ border-collapse:collapse; width:100%; margin-bottom:10px; page-break-inside:avoid; table-layout:fixed; }
-                table.pivot th, table.pivot td{ border:1px solid #94a3b8; padding:4px 6px; font-size:9px; word-wrap:break-word; overflow:hidden; }
+                table.pivot th, table.pivot td{ border:1px solid #94a3b8; padding:4px 6px; font-size:9px; word-wrap:break-word; white-space:nowrap; }
                 table.pivot thead th{ color:#fff; text-align:center; }
                 table.pivot thead th.period-head{ background:#e6ebf5; color:#1e293b; font-size:8px; }
                 table.pivot tbody td{ text-align:right; }
